@@ -1,0 +1,3 @@
+export function getWhatsAppNumber() { return String(import.meta.env.VITE_WHATSAPP_NUMBER || "").replace(/\D/g, ""); }
+export function buildWhatsAppUrl(message) { const number = getWhatsAppNumber(); return number ? `https://wa.me/${number}?text=${encodeURIComponent(message)}` : ""; }
+export function whatsappEnquiryUrl({ product, variant, quantity = 1, message = "" }) { return buildWhatsAppUrl(["Hello, I would like a wholesale enquiry.", `Product: ${product.title}`, `SKU: ${variant?.sku || product.sku || "—"}`, `Size: ${variant?.size || "—"}`, `Quantity: ${quantity}`, message && `Message: ${message}`].filter(Boolean).join("\n")); }

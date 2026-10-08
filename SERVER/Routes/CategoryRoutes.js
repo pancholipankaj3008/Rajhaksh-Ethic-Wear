@@ -1,0 +1,11 @@
+const express = require("express");
+const upload = require("../Middlewares/Multer");
+const { Auth } = require("../Middlewares/Auth");
+const { GetCategories, GetCategory, CreateCategory, UpdateCategory, DeleteCategory } = require("../Controllers/CategoryController");
+const router = express.Router();
+router.get("/", GetCategories);
+router.get("/:slug", GetCategory);
+router.post("/", Auth("admin"), upload.single("image"), CreateCategory);
+router.put("/:id", Auth("admin"), upload.single("image"), UpdateCategory);
+router.delete("/:id", Auth("admin"), DeleteCategory);
+module.exports = router;
